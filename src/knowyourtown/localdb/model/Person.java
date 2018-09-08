@@ -1,20 +1,15 @@
-package introsde.assignment.soap.model;
+package knowyourtown.localdb.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import introsde.assignment.soap.dao.LifeCoachDao;
-import introsde.assignment.soap.model.Measure;
+import knowyourtown.localdb.dao.PeopleDao;
+import knowyourtown.localdb.model.Place;
 
 @Entity  // indicates that this class is an entity to persist in DB
 @Table(name="Person") // to whate table must be persisted
@@ -46,9 +41,18 @@ public class Person implements Serializable
     //private Date birthdate; 
     private String birthdate;
     
-    // MappedBy must be equal to the name of the attribute in Measure that maps this relation
+    @Column(name="sex")
+    private String sex;
+    
+    @Column(name="nationality")
+    private String nationality;
+    
+    @Column(name="birthplace")
+    private String birthplace;
+    
+    // MappedBy must be equal to the name of the attribute in Place that maps this relation
     @OneToMany(mappedBy="person", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<Measure> measure;
+    private List<Place> place;
        
     public int getIdPerson() {
 		return idPerson;
@@ -92,77 +96,100 @@ public class Person implements Serializable
 		this.birthdate = birthdate;
 	}
 	
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+	
+	public String getBirthplace() {
+		return birthplace;
+	}
+
+	public void setBirthplace(String birthplace) {
+		this.birthplace = birthplace;
+	}
+	
 	// Inherit elements
-	@XmlElementWrapper(name = "healthProfile")
-    public List<Measure> getMeasure() {
-        return Measure.getLastMeasure(this.idPerson);
-		//return measure;
+	@XmlElementWrapper(name = "places")
+    public List<Place> getPlace() {
+        return Place.getLastPlace(this.idPerson);
     }
 	
-    public void setMeasure(List<Measure> measure) {
-        this.measure = measure;
+    public void setPlace(List<Place> place) {
+        this.place = place;
     }
     
     @XmlTransient
-    public List<Measure> getAllMeasure() {
-    	return measure;
+    public List<Place> getAllPlace() {
+    	return place;
     }
 	
 	// Database operations
 	public static Person getPersonById(int personId) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         Person p = em.find(Person.class, personId);
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
 	public static List<Person> getAll() {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         List<Person> list = em.createNamedQuery("Person.findAll", Person.class)
             .getResultList();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return list;
     }
 
     public static Person savePerson(Person p) {
-        // Add idP to measures
-    	List<Measure> mList = p.getAllMeasure();
+        // Add idP to places
+    	List<Place> mList = p.getAllPlace();
     	
     	if(mList != null)
     	{
-	    	for(Measure m: mList)
+	    	for(Place m: mList)
 	    	{
 	    		m.setPerson(p);
 	    	}
     	}
     	
-    	EntityManager em = LifeCoachDao.instance.createEntityManager();
+    	EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         em.persist(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     } 
 
     public static Person updatePerson(Person p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager(); 
+        EntityManager em = PeopleDao.instance.createEntityManager(); 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
         return p;
     }
 
     public static void removePerson(Person p) {
-        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        EntityManager em = PeopleDao.instance.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         p=em.merge(p);
         em.remove(p);
         tx.commit();
-        LifeCoachDao.instance.closeConnections(em);
+        PeopleDao.instance.closeConnections(em);
     }
     
 }

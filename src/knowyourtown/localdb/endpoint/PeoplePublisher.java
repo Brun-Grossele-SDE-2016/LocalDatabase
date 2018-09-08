@@ -1,6 +1,6 @@
-package introsde.assignment.soap.endpoint;
+package knowyourtown.localdb.endpoint;
 
-import introsde.assignment.soap.webservice.PeopleImplementation;
+import knowyourtown.localdb.webservice.PeopleImplementation;
 
 import java.io.IOException;
 import java.net.InetAddress;

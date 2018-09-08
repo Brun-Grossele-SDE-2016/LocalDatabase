@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <project name="Assignment3-Server" default="install" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    <project name="local-db-service" default="install" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
         <!-- PART 1: Ivy properties, download, installation and configuration -->
         <property name="ivy.install.version" value="2.4.0-rc1" />
         <property name="ivy.jar.dir" value="${basedir}/ivy" />
@@ -91,8 +91,8 @@
     	
     	<!-- Target runs the endpoint. Publishes the service -->
         <target name="start" depends="install">
-            <echo message="app start introsde.assignment.soap.endpoint.PeoplePublisher in ${build.dir}" />
-            <java classname="introsde.assignment.soap.endpoint.PeoplePublisher" classpath="${build.dir}" fork="true">
+            <echo message="app start knowyourtown.localdb.endpoint.PeoplePublisher in ${build.dir}" />
+            <java classname="knowyourtown.localdb.endpoint.PeoplePublisher" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />

@@ -1,21 +1,19 @@
-package introsde.assignment.soap.dao;
-
-import java.util.List;
+package knowyourtown.localdb.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public enum LifeCoachDao {
+public enum PeopleDao {
 	instance;
 	private EntityManagerFactory emf;
 	
-	private LifeCoachDao() {
+	private PeopleDao() {
 		if (emf!=null) {
 			emf.close();
 		}
-		emf = Persistence.createEntityManagerFactory("introsde-jpa");
+		emf = Persistence.createEntityManagerFactory("knowyourtown-jpa");
 	}
 	
 	public EntityManager createEntityManager() {
@@ -34,6 +32,6 @@ public enum LifeCoachDao {
 		return emf;
 	}
 	
-	// add other database global access operations
+	// Add other database global access operations
 
 }

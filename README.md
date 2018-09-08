@@ -1,5 +1,6 @@
-# local-db-service
-https://introsde-knowyourtown-localdb.herokuapp.com/ws/people?wsdl
+# Local Database
+
+https://introsdelocalstoragegrossele.herokuapp.com/ws/people?wsdl
 
 ## Deploy in Heroku 
 >heroku login<br />
@@ -8,7 +9,7 @@ https://introsde-knowyourtown-localdb.herokuapp.com/ws/people?wsdl
 >heroku open<br />
 >(Rename app)<br />
 >git remote rm heroku<br />
->heroku git:remote -a introsde-knowyourtown-localdb
+>heroku git:remote -a introsdelocalstoragegrossele
 
 ## Tables
 ### User
@@ -19,18 +20,16 @@ https://introsde-knowyourtown-localdb.herokuapp.com/ws/people?wsdl
 ##### SetUserName(token, name) ->
 ##### SetUserSurname(token, surname) ->
 
-### Measure
-##### getLast10Measures(token, type)
-##### getLastMeasure(token, type)
-##### updateMeasure(token, type, value) -> add measure ricordare data
+### Place
+##### getLast10Places(token, type)
+##### getLastPlace(token, type)
+##### updatePlace(token, type, value) -> add Place ricordare data
 
-### MeasureType
+### PlaceType
 ##### getTypes()
 
-### Goal
-##### getGoals(token) -> n goal quanti i tipi
-##### setGoal(token, type, goaltype, value) -> overwrite the previous goal of that type
-##### getGoal(token, type)
+### Suggestion
+##### getSuggestions(token) -> n Suggestion quanti i tipi
+##### setSuggestion(token, type, Suggestiontype, value) -> overwrite the previous Suggestion of that type
+##### getSuggestion(token, type)
 
-### GoalType
-##### getGoalType()

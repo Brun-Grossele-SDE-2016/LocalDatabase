@@ -1,6 +1,6 @@
 # Local Database service
 
-https://introsdelocalstoragegrossele.herokuapp.com/ws/people?wsdl
+https://introsdelocaldbgrossele.herokuapp.com/ws/people?wsdl
 
 ## Deploy in Heroku 
 >heroku login<br />

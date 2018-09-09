@@ -44,9 +44,8 @@ public class Suggestion implements Serializable
    	@JoinColumn(name="idPerson")
    	private Person person;
     
-    @ManyToOne(fetch=FetchType.LAZY)
-   	@JoinColumn(name="idPlace", insertable = true, updatable = true)
-   	private Place place;
+   @Column(name="location")
+   	private String location;
     
     
     // add below all the getters and setters of all the private attributes   
@@ -100,12 +99,12 @@ public class Suggestion implements Serializable
 		this.person = person;
 	}
 	
-	public Place getPlace() {
-		return place;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	
